@@ -116,7 +116,14 @@ public final class Converters {
 
         @Override
         public Block convertTo(RpcItem object) {
-            return new Block(object.asObject());
+            RpcObject obj = object.asObject();
+
+            if (obj.getItem("version")
+                    .asInteger()
+                    .intValue() > 2)
+                return new BlockV3(obj);
+
+            return new BlockV2(obj);
         }
 
         @Override
@@ -138,6 +145,36 @@ public final class Converters {
             return RpcItemCreator.create(object);
         }
     };
+
+    public static final RpcConverter<ConfirmedLeaderVote> CONFIRMED_LEADER_VOTE
+            = new RpcConverter<ConfirmedLeaderVote>() {
+
+        @Override
+        public ConfirmedLeaderVote convertTo(RpcItem object) {
+            return new ConfirmedLeaderVote(object.asObject());
+        }
+
+        @Override
+        public RpcItem convertFrom(ConfirmedLeaderVote object) {
+            return RpcItemCreator.create(object);
+        }
+    };
+
+    public static final RpcConverter<ConfirmedPrevVote> CONFIRMED_PREV_VOTE
+            = new RpcConverter<ConfirmedPrevVote>() {
+
+        @Override
+        public ConfirmedPrevVote convertTo(RpcItem object) {
+            return new ConfirmedPrevVote(object.asObject());
+        }
+
+        @Override
+        public RpcItem convertFrom(ConfirmedPrevVote object) {
+            return RpcItemCreator.create(object);
+        }
+    };
+
+
 
     public static final RpcConverter<TransactionResult> TRANSACTION_RESULT
             = new RpcConverter<TransactionResult>() {

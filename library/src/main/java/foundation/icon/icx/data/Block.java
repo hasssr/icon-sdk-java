@@ -16,84 +16,58 @@
 
 package foundation.icon.icx.data;
 
-import foundation.icon.icx.transport.jsonrpc.RpcConverter;
-import foundation.icon.icx.transport.jsonrpc.RpcItem;
 import foundation.icon.icx.transport.jsonrpc.RpcObject;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
-import static foundation.icon.icx.data.Converters.CONFIRMED_TRANSACTION;
+
+public interface Block {
+
+    // Used in common Block
+    RpcObject getProperties();
+
+    List<ConfirmedTransaction> getTransactions();
+
+    Bytes getPrevBlockHash();
+
+    Bytes getBlockHash();
+
+    BigInteger getTimestamp();
+
+    BigInteger getVersion();
+
+    BigInteger getHeight();
+
+    String getSignature();
+
+    // Used in Block V2
+    Bytes getMerkleTreeRootHash();
+
+    String getPeerId();
 
 
-public class Block {
+    // Used in Block V3
+    Bytes getStateHash();
 
-    private RpcObject properties;
+    Bytes getReceiptsHash();
 
-    Block(RpcObject properties) {
-        this.properties = properties;
-    }
+    Bytes getRepsHash();
 
-    public RpcObject getProperties() {
-        return properties;
-    }
+    Bytes getNextRepsHash();
 
-    public Bytes getPrevBlockHash() {
-        RpcItem item = properties.getItem("prev_block_hash");
-        return item != null ? item.asBytes() : null;
-    }
+    Bytes getLeaderVotesHash();
 
-    public Bytes getMerkleTreeRootHash() {
-        RpcItem item = properties.getItem("merkle_tree_root_hash");
-        return item != null ? item.asBytes() : null;
-    }
+    Bytes getPrevVotesHash();
 
-    public BigInteger getTimestamp() {
-        RpcItem item = properties.getItem("time_stamp");
-        return item != null ? item.asInteger() : null;
-    }
+    List<LeaderVote> getLeaderVotes();
 
-    public List<ConfirmedTransaction> getTransactions() {
-        RpcItem item = properties.getItem("confirmed_transaction_list");
-        List<ConfirmedTransaction> transactions = new ArrayList<>();
-        if (item != null && getHeight().intValue() > 0) {
-            for (RpcItem tx : item.asArray()) {
-                transactions.add(CONFIRMED_TRANSACTION.convertTo(tx.asObject()));
-            }
-        }
-        return transactions;
-    }
+    List<PrevVote> getPrevVotes();
 
-    public Bytes getBlockHash() {
-        RpcItem item = properties.getItem("block_hash");
-        return item != null ? item.asBytes() : null;
-    }
+    Bytes getTransactionsHash();
 
-    public String getPeerId() {
-        RpcItem item = properties.getItem("peer_id");
-        return item != null ? item.asString() : null;
-    }
+    Address getLeader();
 
-    public BigInteger getVersion() {
-        RpcItem item = properties.getItem("version");
-        return item != null ? item.asInteger() : null;
-    }
+    Address getNextLeader();
 
-    public BigInteger getHeight() {
-        RpcItem item = properties.getItem("height");
-        return item != null ? item.asInteger() : null;
-    }
-
-    public String getSignature() {
-        RpcItem item = properties.getItem("signature");
-        return item != null ? item.asString() : null;
-    }
-
-    @Override
-    public String toString() {
-        return "Block{" +
-                "properties=" + properties +
-                '}';
-    }
 }
