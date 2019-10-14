@@ -101,67 +101,67 @@ public class BlockV2 implements Block{
 
     @Override
     public Bytes getStateHash() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Bytes getReceiptsHash() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Bytes getRepsHash() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Bytes getNextRepsHash() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Bytes getLeaderVotesHash() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Bytes getPrevVotesHash() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public List<LeaderVote> getLeaderVotes() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public List<PrevVote> getPrevVotes() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Bytes getTransactionsHash() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Address getLeader() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 
     @Override
     public Address getNextLeader() {
-        // Support Only version 3
+        // Supports Only version 3
         return null;
     }
 

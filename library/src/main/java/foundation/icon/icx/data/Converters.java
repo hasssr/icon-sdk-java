@@ -112,15 +112,25 @@ public final class Converters {
         }
     };
 
-    public static final RpcConverter<Block> BLOCK = new RpcConverter<Block>() {
+    public static final RpcConverter<BlockV2> BLOCK_V2 = new RpcConverter<BlockV2>() {
+
+        @Override
+        public BlockV2 convertTo(RpcItem object) { return new BlockV2(object.asObject()); }
+
+        @Override
+        public RpcItem convertFrom(BlockV2 object) {
+            return RpcItemCreator.create(object);
+        }
+
+    };
+
+    public static final RpcConverter<Block> BLOCK_V3 = new RpcConverter<Block>() {
 
         @Override
         public Block convertTo(RpcItem object) {
             RpcObject obj = object.asObject();
 
-            if (obj.getItem("version")
-                    .asInteger()
-                    .intValue() > 2)
+            if (obj.getItem("version").asInteger().intValue() > 2)
                 return new BlockV3(obj);
 
             return new BlockV2(obj);

@@ -16,6 +16,7 @@
 
 package foundation.icon.icx.data;
 
+import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import foundation.icon.icx.transport.jsonrpc.RpcItem;
 import foundation.icon.icx.transport.jsonrpc.RpcObject;
 
@@ -49,7 +50,7 @@ public class BlockV3 implements Block {
 
     @Override
     public Bytes getMerkleTreeRootHash() {
-        // Support Only version 2
+        // Supports Only version 2
         return null;
     }
 
@@ -79,7 +80,7 @@ public class BlockV3 implements Block {
 
     @Override
     public String getPeerId() {
-        // Support Only version 2
+        // Supports Only version 2
         return null;
     }
 
@@ -142,9 +143,10 @@ public class BlockV3 implements Block {
         RpcItem item = properties.getItem("leader_votes_list");
         List<LeaderVote> leaderVotes = new ArrayList<>();
         if (item != null && getHeight().intValue() > 0) {
-            for (RpcItem tx : item.asArray()) {
-                leaderVotes.add(CONFIRMED_LEADER_VOTE.convertTo(tx.asObject()));
+            for (RpcItem leader : item.asArray()) {
+                leaderVotes.add(CONFIRMED_LEADER_VOTE.convertTo(leader.asObject()));
             }
+
         }
         return leaderVotes;
     }
@@ -154,8 +156,8 @@ public class BlockV3 implements Block {
         RpcItem item = properties.getItem("prev_votes_list");
         List<PrevVote> prevVotes = new ArrayList<>();
         if (item != null && getHeight().intValue() > 0) {
-            for (RpcItem tx : item.asArray()) {
-                prevVotes.add(CONFIRMED_PREV_VOTE.convertTo(tx.asObject()));
+            for (RpcItem prev : item.asArray()) {
+                prevVotes.add(CONFIRMED_PREV_VOTE.convertTo(prev.asObject()));
             }
         }
         return prevVotes;

@@ -51,7 +51,8 @@ public class IconService {
         addConverterFactory(Converters.newFactory(String.class, Converters.STRING));
         addConverterFactory(Converters.newFactory(Bytes.class, Converters.BYTES));
         addConverterFactory(Converters.newFactory(byte[].class, Converters.BYTE_ARRAY));
-        addConverterFactory(Converters.newFactory(Block.class, Converters.BLOCK));
+        addConverterFactory(Converters.newFactory(BlockV2.class, Converters.BLOCK_V2));
+        addConverterFactory(Converters.newFactory(Block.class, Converters.BLOCK_V3));
         addConverterFactory(Converters.newFactory(
                 ConfirmedTransaction.class, Converters.CONFIRMED_TRANSACTION));
         addConverterFactory(Converters.newFactory(
@@ -95,13 +96,25 @@ public class IconService {
      * @param height the block number
      * @return a {@code Block} object
      */
-    public Request<Block> getBlock(BigInteger height) {
+    public Request<BlockV2> getBlock(BigInteger height) {
         long requestId = System.currentTimeMillis();
         RpcObject params = new RpcObject.Builder()
                 .put("height", new RpcValue(height))
                 .build();
         foundation.icon.icx.transport.jsonrpc.Request request = new foundation.icon.icx.transport.jsonrpc.Request(
                 requestId, "icx_getBlockByHeight", params);
+        return provider.request(request, findConverter(BlockV2.class));
+    }
+
+    public Request<Block> getBlock(BigInteger height, int version){
+
+        long requestId = System.currentTimeMillis();
+        RpcObject params = new RpcObject.Builder()
+                .put("height", new RpcValue(height))
+                .build();
+        foundation.icon.icx.transport.jsonrpc.Request request = new foundation.icon.icx.transport.jsonrpc.Request(
+                requestId, "icx_getBlock", params);
+
         return provider.request(request, findConverter(Block.class));
     }
 
@@ -111,13 +124,25 @@ public class IconService {
      * @param hash the block hash
      * @return a {@code Block} object
      */
-    public Request<Block> getBlock(Bytes hash) {
+    public Request<BlockV2> getBlock(Bytes hash) {
         long requestId = System.currentTimeMillis();
         RpcObject params = new RpcObject.Builder()
                 .put("hash", new RpcValue(hash))
                 .build();
         foundation.icon.icx.transport.jsonrpc.Request request = new foundation.icon.icx.transport.jsonrpc.Request(
                 requestId, "icx_getBlockByHash", params);
+        return provider.request(request, findConverter(BlockV2.class));
+    }
+
+    public Request<Block> getBlock(Bytes hash, int version){
+
+        long requestId = System.currentTimeMillis();
+        RpcObject params = new RpcObject.Builder()
+                .put("hash", new RpcValue(hash))
+                .build();
+        foundation.icon.icx.transport.jsonrpc.Request request = new foundation.icon.icx.transport.jsonrpc.Request(
+                requestId, "icx_getBlock", params);
+
         return provider.request(request, findConverter(Block.class));
     }
 
@@ -126,10 +151,19 @@ public class IconService {
      *
      * @return a {@code Block} object
      */
-    public Request<Block> getLastBlock() {
+    public Request<BlockV2> getLastBlock() {
         long requestId = System.currentTimeMillis();
         foundation.icon.icx.transport.jsonrpc.Request request = new foundation.icon.icx.transport.jsonrpc.Request(
                 requestId, "icx_getLastBlock", null);
+        return provider.request(request, findConverter(BlockV2.class));
+    }
+
+    public Request<Block> getLastBlock(int version){
+
+        long requestId = System.currentTimeMillis();
+        foundation.icon.icx.transport.jsonrpc.Request request = new foundation.icon.icx.transport.jsonrpc.Request(
+                requestId, "icx_getBlock", null);
+
         return provider.request(request, findConverter(Block.class));
     }
 

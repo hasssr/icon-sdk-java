@@ -34,8 +34,7 @@ import static foundation.icon.icx.SampleKeys.PRIVATE_KEY_STRING;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class IconServiceTest {
     @Test
@@ -95,6 +94,21 @@ class IconServiceTest {
     }
 
     @Test
+    void testGetBlockByHeightV3() {
+        Provider provider = mock(Provider.class);
+
+        IconService iconService = new IconService(provider);
+        iconService.getBlock(BigInteger.ONE, 3);
+
+        HashMap<String, RpcValue> params = new HashMap<>();
+        params.put("height", new RpcValue(BigInteger.ONE));
+
+        verify(provider).request(
+                argThat(request -> isRequestMatches(request, "icx_getBlock", params)),
+                argThat(Objects::nonNull));
+    }
+
+    @Test
     void testGetBlockByHash() {
         Provider provider = mock(Provider.class);
 
@@ -112,6 +126,24 @@ class IconServiceTest {
     }
 
     @Test
+    void testGetBlockByHashV3() {
+        Provider provider = mock(Provider.class);
+
+        Bytes hash = new Bytes("0x033f8d96045eb8301fd17cf078c28ae58a3ba329f6ada5cf128ee56dc2af26f7");
+
+        IconService iconService = new IconService(provider);
+        iconService.getBlock(hash, 3);
+
+        HashMap<String, RpcValue> params = new HashMap<>();
+        params.put("hash", new RpcValue(hash));
+
+        verify(provider).request(
+                argThat(request -> isRequestMatches(request, "icx_getBlock", params)),
+                argThat(Objects::nonNull));
+    }
+
+
+    @Test
     void testGetLastBlock() {
         Provider provider = mock(Provider.class);
 
@@ -120,6 +152,18 @@ class IconServiceTest {
 
         verify(provider).request(
                 argThat(request -> isRequestMatches(request, "icx_getLastBlock", null)),
+                argThat(Objects::nonNull));
+    }
+
+    @Test
+    void testGetLastBlockV3() {
+        Provider provider = mock(Provider.class);
+
+        IconService iconService = new IconService(provider);
+        iconService.getLastBlock(3);
+
+        verify(provider).request(
+                argThat(request -> isRequestMatches(request, "icx_getBlock", null)),
                 argThat(Objects::nonNull));
     }
 

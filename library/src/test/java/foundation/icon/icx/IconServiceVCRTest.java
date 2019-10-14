@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 
-import static foundation.icon.icx.data.Converters.BLOCK;
+import static foundation.icon.icx.data.Converters.BLOCK_V2;
 import static foundation.icon.icx.data.Converters.RPC_ITEM;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -292,7 +292,7 @@ public class IconServiceVCRTest {
             foundation.icon.icx.transport.jsonrpc.Request request = new foundation.icon.icx.transport.jsonrpc.Request(requestId, "icx_getBlockByHeight", params);
             RpcItem result = provider.request(request, RPC_ITEM).execute();
 
-            Block block = BLOCK.convertTo(result.asObject().getItem("block").asObject());
+            Block block = BLOCK_V2.convertTo(result.asObject().getItem("block").asObject());
             List<ConfirmedTransaction> txs = block.getTransactions();
             for (ConfirmedTransaction tx : txs) {
                 assertDoesNotThrow(() -> {
