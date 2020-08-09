@@ -45,23 +45,23 @@ public class WalletExample {
 
 		// Create keyWallet and store it as a keystore file
 		System.out.println("Create KeyWallet");
-		KeyWallet wallet1 = KeyWallet.create();
-		print(wallet1);
+		KeyWallet walletOne = KeyWallet.create();
+		print(walletOne);
 
 		System.out.println("Store KeyWallet");
-		String fileName = KeyWallet.store(wallet1, PASSWORD, destinationDirectory);
+		String fileName = KeyWallet.store(walletOne, PASSWORD, destinationDirectory);
 		System.out.println("keystore fileName: " + fileName);
 		System.out.println();
 
 		// Loads a wallet from bytes of the private key
 		System.out.println("Load KeyWallet using private key");
-		KeyWallet wallet2 = KeyWallet.load(new Bytes(CommonData.PRIVATE_KEY_STRING));
-		print(wallet2);
+		KeyWallet walletTwo = KeyWallet.load(new Bytes(CommonData.PRIVATE_KEY_STRING));
+		print(walletTwo);
 
 		//  Loads a wallet from a key store file
 		System.out.println("Load KeyWallet using keystore file");
 		File file = new File(destinationDirectory, fileName);
-		KeyWallet wallet3 = KeyWallet.load(PASSWORD, file);
-		print(wallet3);
+		KeyWallet walletThree = KeyWallet.load(PASSWORD, file);
+		print(walletThree);
 	}
 }
