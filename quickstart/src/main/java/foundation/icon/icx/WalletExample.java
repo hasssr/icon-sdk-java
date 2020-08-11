@@ -19,6 +19,7 @@ package foundation.icon.icx;
 import foundation.icon.icx.crypto.KeystoreException;
 import foundation.icon.icx.data.Bytes;
 import foundation.icon.icx.data.CommonData;
+import lombok.extern.log4j.Log4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
+@Log4j
 public class WalletExample {
 
 	private static final String PASSWORD = "P@ssw0rd";
