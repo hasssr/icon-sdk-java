@@ -28,4 +28,6 @@ public class CommonData {
     public static final Address GOVERNANCE_ADDRESS = new Address("cx0000000000000000000000000000000000000001");
 
     public static final String ADDRESS_1 = "hxc5bdfc07a86869e345c9eec73283654df6a0559b";
+
+    public static final int VERSION = 3;
 }

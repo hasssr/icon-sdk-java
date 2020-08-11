@@ -47,7 +47,7 @@ public class TokenTransactionExample {
                 .build();
 
         // Creates an instance of IconService using the HTTP provider
-        iconService = new IconService(new HttpProvider(httpClient, CommonData.SERVER_URI, 3));
+        iconService = new IconService(new HttpProvider(httpClient, CommonData.SERVER_URI, CommonData.VERSION));
 
         this.tokenAddress = tokenAddress;
         printTitle();
