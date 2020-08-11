@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.spring.dependency-management' version '1.0.1.RELEASE'
 }
 
 group 'foundation.icon.icx'
@@ -8,6 +9,12 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.apache.logging.log4j:log4j-bom:2.13.3'
+    }
 }
 
 dependencies {
@@ -22,5 +29,4 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
-
 }
